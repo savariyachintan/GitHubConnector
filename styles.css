@@ -1,38 +1,42 @@
-.user-info {
+.customer-details-form {
     display: flex;
     flex-direction: column;
-    width: 300px;
-    margin: auto;
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.customer-details-form input,
+.customer-details-form select {
+    padding: 10px;
+    margin: 8px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    transition: border-color 0.3s;
 }
 
-.user-info input {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #aaa;
-    border-radius: 3px;
+.customer-details-form input:focus,
+.customer-details-form select:focus {
+    border-color: #007bff;
+    outline: none;
 }
 
-.user-info button {
-    padding: 10px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+@media (max-width: 768px) {
+    .customer-details-form {
+        padding: 15px;
+    }
+    .customer-details-form input,
+    .customer-details-form select {
+        font-size: 14px;
+    }
 }
 
-.user-info button:hover {
-    background-color: #0056b3;
-}
-
-.user-info .display {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    background-color: #f8f9fa;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
