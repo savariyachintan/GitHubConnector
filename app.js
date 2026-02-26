@@ -1,37 +1,48 @@
-// app.js
+// A class to manage customer records using localStorage
+class CustomerManager {
+    constructor() {
+        this.customers = this.loadCustomers();
+    }
 
-// This function will hold user information
-let users = [];
+    loadCustomers() {
+        const customers = localStorage.getItem('customers');
+        return customers ? JSON.parse(customers) : {};
+    }
 
-// Function to store user information
-function storeUser(userInfo) {
-    users.push(userInfo);
-    console.log('User information saved.');
-}
+    saveCustomers() {
+        localStorage.setItem('customers', JSON.stringify(this.customers));
+    }
 
-// Function to retrieve user information
-function retrieveUsers() {
-    return users;
-}
+    addCustomer(id, name, email) {
+        this.customers[id] = { name, email };
+        this.saveCustomers();
+    }
 
-// Function to display user information
-function displayUsers() {
-    users.forEach((user, index) => {
-        console.log(`User ${index + 1}:`, user);
-    });
-}
+    getCustomer(id) {
+        return this.customers[id];
+    }
 
-// Function to delete user information by index
-function deleteUser(index) {
-    if (index >= 0 && index < users.length) {
-        users.splice(index, 1);
-        console.log('User information deleted.');
-    } else {
-        console.log('Invalid index.');
+    displayCustomers() {
+        const customerList = document.getElementById('customerList');
+        customerList.innerHTML = '';
+        for (const id in this.customers) {
+            const customer = this.customers[id];
+            const customerItem = document.createElement('li');
+            customerItem.textContent = `ID: ${id}, Name: ${customer.name}, Email: ${customer.email}`;
+            customerList.appendChild(customerItem);
+        }
+    }
+
+    deleteCustomer(id) {
+        delete this.customers[id];
+        this.saveCustomers();
     }
 }
 
-// Example Usage
-storeUser({name: 'John Doe', age: 30});
-displayUsers();
-deleteUser(0);
+// Example usage
+const customerManager = new CustomerManager();
+
+// Add event listeners or UI interactions here (e.g., on form submit)
+
+// Call displayCustomers to show existing customers when the page loads
+window.onload = () => customerManager.displayCustomers();
